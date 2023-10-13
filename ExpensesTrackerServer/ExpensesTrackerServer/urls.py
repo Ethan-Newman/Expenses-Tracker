@@ -16,11 +16,9 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
-from .views import login
+from django.urls import path, include
 
 urlpatterns = [
-    path('login/', login, name='login'),
-    # Add other URL patterns as needed
+    path('admin/', admin.site.urls),
+    path('ExpensesTracker/', include('ExpensesTracker.urls')),
 ]
-

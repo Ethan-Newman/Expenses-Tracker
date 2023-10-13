@@ -1,0 +1,23 @@
+<!-- ExpensesTracker/templates/ExpensesTracker/login.html -->
+
+{% extends 'ExpensesTracker/base.html' %}
+
+{% block content %}
+    <div class="login-container">
+        <div class="login-box">
+            <h2>Login</h2>
+            <form method="post" action="{% url 'login' %}" class="login-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_username">Username:</label>
+                    {{ form.username }}
+                </div>
+                <div class="form-group">
+                    <label for="id_password">Password:</label>
+                    {{ form.password }}
+                </div>
+                <button type="submit" class="btn-login">Login</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

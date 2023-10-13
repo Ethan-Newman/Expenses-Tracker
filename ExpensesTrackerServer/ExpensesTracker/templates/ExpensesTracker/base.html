@@ -1,0 +1,38 @@
+<!-- ExpensesTracker/templates/ExpensesTracker/base.html -->
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'ExpensesTracker/css/styles.css' %}">
+    <title>{% block title %}Default Title{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1 class="main-title">At My Expense</h1>
+        <nav>
+            <ul class="nav-bar">
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'expenses' %}">Expenses</a></li>
+                <li><a href="{% url 'income' %}">Income</a></li>
+                <li><a href="{% url 'analytics' %}">Analytics</a></li>
+                <li><a href="{% url 'data' %}">Data</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2023 My Website</p>
+    </footer>
+
+</body>
+</html>
