@@ -8,12 +8,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'ExpensesTracker/css/styles.css' %}">
-    <title>{% block title %}Default Title{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'ExpensesTracker/css/base.css' %}">
+    <title>{% block title %}AtMyExpense - Website{% endblock %}</title>
 </head>
 <body>
     <header>
-        <h1 class="main-title">At My Expense</h1>
+        <h1 class="main-title">Expensive, an online financial tracker.</h1>
         <nav>
             <ul class="nav-bar">
                 <li><a href="{% url 'home' %}">Home</a></li>
@@ -31,7 +31,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2023 My Website</p>
+        <p>&copy; 2023 Expensive, an online financial tracker.</p>
     </footer>
 
 </body>

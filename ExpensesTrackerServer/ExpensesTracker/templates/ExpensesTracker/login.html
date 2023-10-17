@@ -1,8 +1,15 @@
 <!-- ExpensesTracker/templates/ExpensesTracker/login.html -->
-
 {% extends 'ExpensesTracker/base.html' %}
 
+{% block title %}Login - Expensive, an online financial tracker.{% endblock %}
+
+{% block header %}Login{% endblock %}
+
+{% load static %}
+
 {% block content %}
+    <link rel="stylesheet" href="{% static 'ExpensesTracker/css/login.css' %}"> 
+
     <div class="login-container">
         <div class="login-box">
             <h2>Login</h2>
@@ -18,6 +25,7 @@
                 </div>
                 <button type="submit" class="btn-login">Login</button>
             </form>
+            <p>Don't have an account? <a href="{% url 'signup' %}">Sign up here</a>.</p>
         </div>
     </div>
 {% endblock %}

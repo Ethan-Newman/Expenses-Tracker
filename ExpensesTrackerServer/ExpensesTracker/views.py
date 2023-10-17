@@ -32,3 +32,6 @@ def analytics_view(request):
 
 def data_view(request):
     return render(request, 'ExpensesTracker/data.html')
+
+def signup_view(request):
+    return render(request, 'ExpensesTracker/signup.html')

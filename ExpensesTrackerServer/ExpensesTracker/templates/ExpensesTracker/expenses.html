@@ -1,11 +1,95 @@
 <!-- ExpensesTracker/templates/ExpensesTracker/home.html -->
+
 {% extends 'ExpensesTracker/base.html' %}
 
-{% block title %}Home - My Website{% endblock %}
+{% block title %}Expenses - Expensive, an online financial tracker.{% endblock %}
 
-{% block header %}Home{% endblock %}
+{% block header %}Expenses{% endblock %}
+
+{% load static %}
 
 {% block content %}
-    <h2>Welcome to the Expense Tracker!</h2>
-    <p>This is the homepage content. You can customize it as needed.</p>
+    <link rel="stylesheet" href="{% static 'ExpensesTracker/css/expenses.css' %}">
+
+    <div class="body-expenses">
+        <div class="container-expenses">
+            <h1>Expense Tracker</h1>
+
+            <form id="expenseForm">
+                <label for="expenseName">Expense Name:</label>
+                <input type="text" id="expenseName" required>
+
+                <label for="expenseAmount">Amount:</label>
+                <input type="text" id="expenseAmount" required pattern="^\d+(\.\d{1,2})?$">
+
+                <button type="button" onclick="addExpense()">Add Expense</button>
+            </form>
+
+            <h2>Expense List</h2>
+            <table id="expenseTable">
+                <thead>
+                    <tr>
+                        <th>Expense Name</th>
+                        <th>Amount</th>
+                        <th>Action</th>
+                        <th>Running Total</th>
+                    </tr>
+                </thead>
+                <tbody id="expenseList"></tbody>
+            </table>
+
+            <p id="runningTotal">Running Total: $0.00</p>
+        </div>
+    </div>
+
+    <script>
+        var runningTotal = 0;
+
+        function addExpense() {
+            var expenseNameInput = document.getElementById("expenseName");
+            var expenseAmountInput = document.getElementById("expenseAmount");
+
+            var expenseName = expenseNameInput.value;
+            var expenseAmount = parseFloat(expenseAmountInput.value);
+
+            if (expenseName && !isNaN(expenseAmount) && expenseAmount >= 0) {
+                var table = document.getElementById("expenseTable").getElementsByTagName('tbody')[0];
+                var newRow = table.insertRow(table.rows.length);
+
+                var cell1 = newRow.insertCell(0);
+                var cell2 = newRow.insertCell(1);
+                var cell3 = newRow.insertCell(2);
+                var cell4 = newRow.insertCell(3);
+
+                cell1.innerHTML = expenseName;
+                cell2.innerHTML = "$" + expenseAmount.toFixed(2);
+                cell3.innerHTML = '<button type="button" onclick="deleteExpense(this)">Delete</button>';
+
+                // Update running total
+                runningTotal += expenseAmount;
+                cell4.innerHTML = "$" + runningTotal.toFixed(2);
+
+                // Update the running total display
+                document.getElementById("runningTotal").innerHTML = "Running Total: $" + runningTotal.toFixed(2);
+
+                // Clear input fields after adding an expense
+                expenseNameInput.value = "";
+                expenseAmountInput.value = "";
+            } else {
+                alert("Please enter a valid expense name and a non-negative amount.");
+            }
+        }
+
+        function deleteExpense(button) {
+            var row = button.parentNode.parentNode;
+            var amountCell = row.cells[1];
+            var amount = parseFloat(amountCell.innerHTML.substring(1)); // Remove the "$" sign
+            runningTotal -= amount;
+
+            // Update the running total display
+            document.getElementById("runningTotal").innerHTML = "Running Total: $" + runningTotal.toFixed(2);
+
+            row.parentNode.removeChild(row);
+        }
+    </script>
 {% endblock %}

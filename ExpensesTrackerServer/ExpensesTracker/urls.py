@@ -10,5 +10,6 @@ urlpatterns = [
     path('analytics/', analytics_view, name='analytics'),
     path('data/', data_view, name='data'),
     path('login/', login_view, name='login'),
+    path('signup/', signup_view, name='signup')
     # Add other URL patterns as needed
 ]
