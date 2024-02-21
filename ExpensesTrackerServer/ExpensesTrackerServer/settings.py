@@ -124,3 +124,9 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+
+SESSION_ENGINE = "django.contrib.sessions.backends.db"  # Database-backed sessions
+
+# Set SESSION_COOKIE_SECURE to True if using HTTPS in production
+SESSION_COOKIE_SECURE = False  # Set to True in production

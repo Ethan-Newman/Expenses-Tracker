@@ -1,5 +1,6 @@
 # ExpensesTrackerServer/your_app/urls.py
 
+from django.contrib import admin
 from django.urls import path
 from .views import *
 
@@ -10,6 +11,7 @@ urlpatterns = [
     path('analytics/', analytics_view, name='analytics'),
     path('data/', data_view, name='data'),
     path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
     path('signup/', signup_view, name='signup')
     # Add other URL patterns as needed
 ]
