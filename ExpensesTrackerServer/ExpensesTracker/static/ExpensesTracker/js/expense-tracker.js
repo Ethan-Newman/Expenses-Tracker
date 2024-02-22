@@ -1,5 +1,10 @@
 var runningTotal = 0;
 
+document.getElementById("saveButton").addEventListener("click", function() {
+    // Call saveExpenses function with dynamic data
+    saveExpensesDynamicData();
+});
+
         function addExpense() {
             var expenseNameInput = document.getElementById("expenseName");
             var expenseAmountInput = document.getElementById("expenseAmount");
@@ -47,16 +52,15 @@ var runningTotal = 0;
             row.parentNode.removeChild(row);
         }
 
-        function saveExpense(name, amount) {
-            // Prepare data to send to the server
+        function saveExpenses(expenses) {
+            // Gather the running total from the last cell of the table
+            var runningTotal = document.getElementById("runningTotal").innerText.replace("Running Total: $", "");
             var data = {
-                'name': name,
-                'amount': amount,
-                'runningTotal': runningTotal,
+                'expenses': expenses,
+                'runningTotal': parseFloat(runningTotal),
             };
-        
             // Use AJAX to send data to the server
-            fetch('/save_expense/', {
+            fetch('/ExpensesTracker/save_expense/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -72,13 +76,42 @@ var runningTotal = 0;
             })
             .then(data => {
                 // Handle the response from the server (if needed)
-                console.log('Expense saved successfully:', data);
+                console.log('Expenses saved successfully:', data);
             })
             .catch(error => {
                 console.error('There was a problem with the fetch operation:', error);
             });
         }
         
+        function saveExpensesDynamicData() {
+            // Loop through the table rows and gather dynamic data
+            var expenseRows = document.getElementById("expenseTable").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+            var expenseList = []; // Initialize an empty array to store multiple entries
+        
+            for (var i = 0; i < expenseRows.length; i++) {
+                var cells = expenseRows[i].getElementsByTagName("td");
+                var expenseName = cells[0].innerHTML;
+                var expenseAmountString = cells[1].innerHTML.substring(1);
+                var expenseAmount = parseFloat(expenseAmountString);
+        
+                // Add the data to the expenseList array
+                expenseList.push({ name: expenseName, amount: expenseAmount });
+            }
+            var runningTotal = calculateRunningTotal(expenseList);
+
+            // Call saveExpenses with the gathered dynamic data and running total
+            saveExpenses(expenseList, runningTotal);
+        }
+        
+        function calculateRunningTotal(expenses) {
+            // Calculate the running total from the array of expenses
+            var total = 0;
+            for (var i = 0; i < expenses.length; i++) {
+                total += expenses[i].amount;
+            }
+            return total;
+        }
+
         // Function to get CSRF token from cookies (needed for Django)
         function getCookie(name) {
             var cookieValue = null;

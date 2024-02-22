@@ -15,6 +15,9 @@
         <div class="container-expenses">
             <h1>Expense Tracker</h1>
 
+            <form id="expenseForm" method="post" action="{% url 'save_expense' %}">
+                {% csrf_token %}
+
             <form id="expenseForm">
                 <label for="expenseName">Expense Name:</label>
                 <input type="text" id="expenseName" required>
@@ -39,7 +42,7 @@
             </table>
 
             <p id="runningTotal">Running Total: $0.00</p>
-            <button type="button" onclick="">Save Expenses</button>
+            <button type="button" id="saveButton">Save Expenses</button>
         </div>
     </div>
 
